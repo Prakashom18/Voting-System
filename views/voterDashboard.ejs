@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Dashboard - Online Voting System</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #4CAF50;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --danger-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .user-info {
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .dashboard-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .welcome-message {
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .option-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: var(--dark-color);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .option-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .option-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .logout-card {
+            border: 2px solid var(--danger-color);
+        }
+        
+        .logout-card .option-icon {
+            color: var(--danger-color);
+        }
+        
+        .logout-card:hover {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .logout-card:hover .option-icon,
+        .logout-card:hover .option-desc {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/voter/dashboard" class="logo">Online Voting System</a>
+            <div class="user-info">Welcome, <%= voter.name %></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="dashboard-container">
+            <h1>Voter Dashboard</h1>
+            <p class="welcome-message">You have successfully logged in. What would you like to do today?</p>
+            
+            <div class="dashboard-options">
+                <a href="/candidates" class="option-card">
+                    <div class="option-icon"><i class="fas fa-vote-yea"></i></div>
+                    <div class="option-title">Cast Your Vote</div>
+                    <div class="option-desc">Select your preferred candidates</div>
+                </a>
+                
+                <a href="/voter/edit" class="option-card">
+                    <div class="option-icon"><i class="fas fa-user-edit"></i></div>
+                    <div class="option-title">Edit Profile</div>
+                    <div class="option-desc">Update your personal information</div>
+                </a>
+                
+                <a href="/voter/logout" class="option-card logout-card">
+                    <div class="option-icon"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="option-title">Logout</div>
+                    <div class="option-desc">Securely end your session</div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="copyright">&copy; 2025 Online Voting System. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>

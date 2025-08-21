@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #4CAF50;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --danger-color: #e74c3c;
+            --sidebar-width: 250px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            transition: margin-left 0.3s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .active {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: var(--sidebar-width);
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: var(--primary-color);
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 70px;
+            z-index: 999;
+        }
+        
+        .sidebar.open {
+            left: 0;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 20px;
+        }
+        
+        .sidebar li {
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 0.8rem;
+            color: white;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .sidebar .active {
+            background: rgba(76, 175, 80, 0.3);
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 70px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+            flex: 1;
+        }
+        
+        .main-content.shifted {
+            margin-left: var(--sidebar-width);
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .buttons a {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .buttons a:hover {
+            background-color: #3d8b40;
+        }
+        .bodypage section {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .bodypage section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .bodypage section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .bodypage section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .footer-info {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .main-content.shifted {
+                margin-left: 0;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .login-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-image img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-options {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .login-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+        }
+
+        .login-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .admin-btn {
+            background-color: var(--primary-color);
+        }
+
+        .admin-btn:hover {
+            background-color: #1a252f;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .login-image {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <h1 class="logo">Online Voting System</h1>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#elections">Elections</a>
+                <a href="#results">Results</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#elections">Elections</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <div class="container">
+            <div class="card">
+                <div class="login-container" id="home">
+                    <div class="login-image">
+                        <img src="https://electionbuddy.com/wp-content/uploads/2022/01/Voting-image-6-scaled.jpg" alt="Online Voting System">
+                    </div>
+                    <div class="login-options">
+                        <h2 class="login-title">Login as:</h2>
+                        <div class="login-buttons">
+                            <a href="/admin/login" class="login-btn admin-btn">
+                                <i class="fas fa-lock"></i> Administrator
+                            </a>
+                            <a href="/voter/login" class="login-btn">
+                                <i class="fas fa-user"></i> Voter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Section -->
+<div class="bodypage">                
+<section id="about" class="card">
+    <h2>About Us</h2>
+    <p>Our Online Voting System ensures secure, transparent, and accessible elections for all users. We are dedicated to modernizing the voting experience using cutting-edge web technologies.</p>
+</section>
+
+<!-- Elections Section -->
+<section id="elections" class="card">
+    <h2>Ongoing Elections</h2>
+    <p>Participate actively to make your vote count.</p>
+</section>
+
+<!-- Results Section -->
+<section id="results" class="card">
+    <h2>Results</h2>
+    <p>Check real-time election results  in a transparent and verifiable format.</p>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="card">
+    <h2>Contact Us</h2>
+    <p>If you have any questions or concerns, feel free to reach out at <a href="mailto:support@votingsystem.com">support@votingsystem.com</a>.</p>
+</section>
+
+</div>
+
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+            </div>
+            <div class="footer-info">
+                &copy; 2025 Online Voting System. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle sidebar
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            mainContent.classList.toggle('shifted');
+            
+            // Change menu icon
+            if (sidebar.classList.contains('open')) {
+                menuToggle.innerHTML = '✕';
+            } else {
+                menuToggle.innerHTML = '☰';
+            }
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!sidebar.contains(event.target) && event.target !== menuToggle) {
+                sidebar.classList.remove('open');
+                mainContent.classList.remove('shifted');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+    </script>
+</body>
+</html>
