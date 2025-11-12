@@ -6,7 +6,7 @@ const app = express();
 const session = require('express-session');
 // Import the routes
 const indexRoutes = require('./routes/index');  // Add this line
-const voterRoutes = require('./routes/voter'); // ✅ Import voter routes
+const voterRoutes = require('./routes/voter'); // ✅ Import voter routesno
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));

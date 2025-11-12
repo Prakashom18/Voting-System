@@ -1,209 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote for Candidate - Online Voting System</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #4CAF50;
-            --light-color: #f5f5f5;
-            --dark-color: #333;
-            --danger-color: #e74c3c;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-        }
-        
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-        }
-        
-        .page-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
-        
-        .back-button {
-            display: inline-block;
-            margin-bottom: 2rem;
-            padding: 0.8rem 1.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        
-        .back-button:hover {
-            background-color: #1a252f;
-        }
-        
-        .candidates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .candidate-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .candidate-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .candidate-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        
-        .candidate-info {
-            padding: 1.5rem;
-        }
-        
-        .candidate-name {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .candidate-bio {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        
-        .vote-button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .vote-button:hover {
-            background-color: #3d8b40;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        @media (max-width: 768px) {
-            .candidates-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vote for Candidate - Online Voting System</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #4CAF50;
+      --light-color: #f5f5f5;
+      --dark-color: #333;
+      --danger-color: #e74c3c;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+    }
+    .back-button {
+      display: inline-block;
+      margin-bottom: 2rem;
+      padding: 0.8rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .back-button:hover {
+      background-color: #1a252f;
+    }
+    .candidates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .candidate-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .candidate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .candidate-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .candidate-info {
+      padding: 1.5rem;
+    }
+    .candidate-name {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    .candidate-bio {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .vote-button {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .vote-button:hover {
+      background-color: #3d8b40;
+    }
+    .vote-button.disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    @media (max-width: 768px) {
+      .candidates-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-container">
-            <a href="/" class="logo">Online Voting System</a>
-        </div>
-    </header>
+  <header>
+    <div class="header-container">
+      <a href="/" class="logo">Online Voting System</a>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="page-header">
-            <h1>Vote for Your Preferred Candidate</h1>
-            <a href="/voter/dashboard" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
-        </div>
-        
-        <div class="candidates-grid">
-            <% candidates.forEach(c => { %>
-                <div class="candidate-card">
-                    <img src="<%= c.imageUrl %>" alt="<%= c.name %>" class="candidate-image">
-                    <div class="candidate-info">
-                        <h2 class="candidate-name"><%= c.name %></h2>
-                        <p class="candidate-bio"><%= c.bio %></p>
-                        <form action="/vote/<%= c._id %>" method="POST">
-                            <button type="submit" class="vote-button">
-                                <i class="fas fa-vote-yea"></i> Cast Your Vote
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            <% }) %>
-        </div>
-    </main>
-   
-      
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Vote for Your Preferred Candidate</h1>
+      <a href="/voter/dashboard" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="copyright">&copy; 2025 Online Voting System. All rights reserved.</div>
+    <% if (hasVoted) { %>
+      <div style="text-align:center; margin-bottom: 1.5rem;">
+        <p style="color: green; font-weight: 600;">You have already voted. Thank you for your participation!</p>
+      </div>
+    <% } %>
+
+    <div class="candidates-grid">
+      <% candidates.forEach(c => { %>
+        <div class="candidate-card">
+          <img src="<%= c.imageUrl %>" alt="<%= c.name %>" class="candidate-image">
+          <div class="candidate-info">
+            <h2 class="candidate-name"><%= c.name %></h2>
+            <p class="candidate-bio"><%= c.bio %></p>
+
+            <% if (!hasVoted) { %>
+              <form action="/vote/<%= c._id %>" method="POST">
+                <button type="submit" class="vote-button">
+                  <i class="fas fa-vote-yea"></i> Cast Your Vote
+                </button>
+              </form>
+            <% } else { %>
+              <button disabled class="vote-button disabled">
+                <i class="fas fa-check-circle"></i> Vote Recorded
+              </button>
+            <% } %>
+          </div>
         </div>
-    </footer>
+      <% }) %>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="copyright">
+        &copy; 2025 Online Voting System. All rights reserved.
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
